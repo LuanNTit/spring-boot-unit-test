@@ -3,6 +3,7 @@ package com.luan.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,5 +70,18 @@ public class ProductController {
 			new ResponseObject("ok", "Update Product successfully", updatedProduct)
 		);
 	}
-	
+	@DeleteMapping("/{id}")
+	// Delete a Product => DELETE method
+	ResponseEntity<ResponseObject> deleteProduct(@PathVariable Long id) {
+		boolean exists = repository.existsById(id);
+		if (exists) {
+			repository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("ok", "Delete product successfully", "")
+			);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+			new ResponseObject("failed", "Cannot find product to delete", "")
+		);
+	}
 }
