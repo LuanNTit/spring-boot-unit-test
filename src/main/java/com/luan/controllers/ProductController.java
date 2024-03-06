@@ -16,7 +16,7 @@ import com.luan.models.ResponseObject;
 import com.luan.repositories.ProductRepository;
 import java.util.List;
 import java.util.Optional;
-
+// Now connect with mysql using JPA
 @RestController
 @RequestMapping("/api/v1/Products")
 public class ProductController {
